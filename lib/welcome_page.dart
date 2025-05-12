@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/login_page.dart';
-import 'pages/role_selection_page.dart' as register; // Assign a prefix
-import 'package:google_fonts/google_fonts.dart'; //assign fonts
+import 'pages/role_selection_page.dart' as register;
+import 'package:google_fonts/google_fonts.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -9,95 +9,101 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Illustration matching the screenshot
               Image.asset(
-                'assets/images/welcome.gif', // Ensure this path is correct
-                height: 200,
-              ),
-              const SizedBox(height: 24),
-
-              const SizedBox(height: 24),
-              Text(
-                'Getting nearer to\nYour Dream here',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.openSans(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF261FB3),
-                ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Learn – Share – Strive',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color.fromARGB(255, 163, 163, 166),
-                ),
+                'assets/images/welcome-nobg.png', // Update this path
+                height: 250,
+                width: 250,
               ),
               const SizedBox(height: 32),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(
-                        0xFF261FB3,
-                      ), // Blue background
-                      foregroundColor: Colors.white, // White text
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+
+              // Main heading
+              Text(
+                'Get Your Dream Job !',
+                style: GoogleFonts.poppins(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+
+              // Subtitle
+              Text(
+                'Explore exciting job opportunities, connect with employers, and take the next step in your career.',
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  color: Colors.grey[600],
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32),
+
+              // Login Button
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed:
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const LoginPage()),
                       ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 48,
-                        vertical: 16,
-                      ),
-                      textStyle: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF261FB3),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    onPressed:
-                        () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const LoginPage()),
-                        ),
-                    child: const Text('Login'),
                   ),
-                  const SizedBox(width: 16),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.black, // Black text
-                      side: const BorderSide(
-                        color: Colors.black,
-                        width: 2,
-                      ), // Thicker black border
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 48,
-                        vertical: 16,
-                      ),
-                      textStyle: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  child: Text(
+                    'Login',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                    onPressed:
-                        () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const register.RoleSelectionPage(),
-                          ),
-                        ),
-                    child: const Text('Register'),
                   ),
-                ],
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Register Button
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed:
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const register.RoleSelectionPage(),
+                        ),
+                      ),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Color(0xFF261FB3),
+                    side: const BorderSide(
+                      color: Color.fromARGB(255, 211, 232, 250),
+                      width: 2,
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Text(
+                    'Register',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  file_picker: ^5.2.6
   cupertino_icons: ^1.0.8
   google_fonts: ^6.2.1
 
@@ -26,3 +27,8 @@ flutter:
 
   assets:
     - assets/images/welcome.gif
+    - assets/images/welcome.jpg
+    - assets/images/welcome-nobg.png
+    - assets/images/camera.png
+    - assets/images/amd_logo.png
+    - assets/images/intel_logo.png
