@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart';
 
 class UploadSsmCertificatePage extends StatefulWidget {
   const UploadSsmCertificatePage({super.key});
@@ -13,25 +13,36 @@ class _UploadSsmCertificatePageState extends State<UploadSsmCertificatePage> {
   String? selectedFileName;
 
   Future<void> pickFile() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
-      withData: true,
+    // Define the file types that can be selected
+    final XTypeGroup imagesAndPdf = XTypeGroup(
+      label: 'Images & PDF',
+      extensions: ['jpg', 'jpeg', 'png', 'pdf'],
     );
 
-    if (result != null && result.files.isNotEmpty) {
-      setState(() {
-        selectedFileName = result.files.first.name;
-      });
+    try {
+      // Open file picker dialog for selecting files
+      final XFile? file = await openFile(acceptedTypeGroups: [imagesAndPdf]);
 
-      // Show success message after upload
+      if (file != null) {
+        setState(() {
+          selectedFileName = file.name;
+        });
+
+        // Show success message after upload
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('File "${file.name}" uploaded successfully!'),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle any errors
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            'File "${result.files.first.name}" uploaded successfully!',
-          ),
-          backgroundColor: Colors.green,
-          duration: const Duration(seconds: 2),
+          content: Text('Error picking file: $e'),
+          backgroundColor: Colors.red,
         ),
       );
     }

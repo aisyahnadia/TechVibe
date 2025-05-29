@@ -164,29 +164,34 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
       return;
     }
 
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          title: const Text("Account Verified"),
-          content: Text(
-            "Your ${widget.role} account has been successfully created and verified.",
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close dialog
-                Navigator.of(context).pop(); // Go back
-              },
-              child: const Text("OK"),
+    if (widget.role.toLowerCase() == "login") {
+      // ✅ Skip the dialog and navigate directly to Home for login users
+      Navigator.of(context).pushReplacementNamed('/home');
+    } else {
+      // ✅ Show dialog only for registration users
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
-          ],
-        );
-      },
-    );
+            title: const Text("Account Verified"),
+            content: Text(
+              "Your ${widget.role} account has been successfully created and verified.",
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close dialog
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

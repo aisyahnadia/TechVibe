@@ -4,22 +4,24 @@ import 'pages/role_selection_page.dart';
 import 'pages/verify_otp_page.dart';
 import 'welcome_page.dart';
 import 'splash_screen.dart';
+import 'pages/home_page.dart';
+import 'pages/apply_job.dart';
 
 void main() {
-  runApp(const ProNetApp());
+  runApp(const MainApp());
 }
 
-class ProNetApp extends StatelessWidget {
-  const ProNetApp({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ProNet',
+      title: 'ProNet & Apply Job',
       theme: ThemeData(primarySwatch: Colors.indigo),
       home: const SplashScreen(),
 
-      // ✅ Using onGenerateRoute for dynamic arguments support
+      // ✅ Use onGenerateRoute for handling dynamic route arguments
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/welcome':
@@ -32,15 +34,21 @@ class ProNetApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const RoleSelectionPage());
 
           case '/verify-otp':
-            // ✅ Expect String argument 'role'
-            if (settings.arguments is String) {
-              final role = settings.arguments as String;
+            // ✅ Expecting a Map with 'role'
+            if (settings.arguments is Map) {
+              final role = (settings.arguments as Map)['role'] as String;
               return MaterialPageRoute(
                 builder: (_) => VerifyOtpPage(role: role),
               );
             } else {
               return _errorRoute('Invalid arguments for VerifyOtpPage');
             }
+
+          case '/home':
+            return MaterialPageRoute(builder: (_) => const HomePage());
+
+          case '/apply-job':
+            return MaterialPageRoute(builder: (_) => const ApplyJobScreen());
 
           default:
             return _errorRoute('Page not found');
@@ -49,7 +57,7 @@ class ProNetApp extends StatelessWidget {
     );
   }
 
-  // ✅ Helper for error route (optional but cleaner)
+  // ✅ Helper method for error page routing
   MaterialPageRoute _errorRoute(String message) {
     return MaterialPageRoute(
       builder:
